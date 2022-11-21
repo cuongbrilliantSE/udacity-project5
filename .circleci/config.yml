@@ -39,13 +39,14 @@ jobs:
             --parameter-overrides $(jq -r '.[] | [.ParameterKey, .ParameterValue] | "\(.[0])=\(.[1])"' ./infrastructure/system-parameters.json) \
             --stack-name << parameters.stack-name >> \
             --capabilities "CAPABILITY_IAM" "CAPABILITY_NAMED_IAM"
+            
   lint-frontend:
     docker:
       - image: node:13.8.0
     steps:
       - checkout
       - run:
-          name: Check lint code 
+          name: Check lint code
           command: |
             cd frontend
             npm install

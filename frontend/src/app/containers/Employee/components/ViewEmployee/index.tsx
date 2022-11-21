@@ -157,7 +157,7 @@ export class ViewEmployee extends Component<
         isFetching={isFetching}
         searchText={searchText}
         onSearchChange={this.handleSearch}
-        placeholder='Search in the app'
+        placeholder='Search in the app 11'
         title='General Search'
       />
     );
@@ -174,7 +174,7 @@ export class ViewEmployee extends Component<
               <a>Employees</a>
             </li>
             <li onClick={this.goBackToEmployees}>
-              <a>View & Manage</a>
+              <a>View & Manage 11</a>
             </li>
             <li>
               <a style={this.thirdLevelBreadcrumb}>View</a>
@@ -236,7 +236,7 @@ export class ViewEmployee extends Component<
                 className={`${style.cell} ${style['medium-6']} ${style['large-6']}`}
               >
                 <div className={style['input-cell']}>
-                  <label htmlFor='displayname'>Display Name</label>
+                  <label htmlFor='displayname'>Display Name 11</label>
                   <div className={`${style['read-input']} ${style.big}`}>
                     {this.state.displayName}
                   </div>
