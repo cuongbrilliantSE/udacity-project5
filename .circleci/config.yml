@@ -26,10 +26,10 @@ jobs:
       stack-name:
         description: Name of the CloudFormation stack
         type: string
-    docker:
-        - image : amazon/aws-cli
+    executor: aws-cli/default
     steps:
       - checkout
+      - aws-cli/setup
       - run: 
           name: Deploy Cloudformation Template with new Docker image
           no_output_timeout: 30m
@@ -63,7 +63,7 @@ jobs:
           paths:
             - /caches/capstone-frontend.tar
       - run:
-          name: Load docker image layer cache
+          name: Load Docker image layer cache
           command: |
             # set +o pipefail
             if [[ -f "/caches/app.tar" ]]; then
@@ -73,21 +73,21 @@ jobs:
           name: Build front-end
           command: |
             cd frontend
-            docker build -t dangdang511/capstore-frontend .
+            docker build -t dangdang511/capstone-frontend .
       - run:
           name: Save Docker image layer cache
           command: |
             mkdir -p /caches
-            docker save -o /caches/capstone-frontend.tar dangdang511/capstore-frontend
+            docker save -o /caches/capstone-frontend.tar dangdang511/capstone-frontend
       - save_cache:
           key: v1-{{ .Branch }}-{{ epoch }}
           paths:
-            - /caches/capstone-frontend.tar 
+            - /caches/capstone-frontend.tar
       - run:
           name: Publish Docker Image to Docker Hub
           command: |
             echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" -p "$DOCKERHUB_PASS"
-            docker push dangdang511/capstore-frontend:latest
+            docker push dangdang511/capstone-frontend:latest
 
   deploy-frontend:
     executor: aws-eks/python3
