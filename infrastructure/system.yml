@@ -21,6 +21,18 @@ Parameters:
     Description: Please enter the IP range (CIDR notation) for the public subnet in the second Availability Zone
     Type: String
     Default: 10.192.11.0/24
+
+  EKSIAMRoleName:
+    Type: String
+    Description: The name of the IAM role for the EKS service to assume.
+  
+  EKSNodeRoleName:
+    Type: String
+    Description: The name of the Node role for the EKS service to assume.
+
+  EKSClusterName:
+    Type: String
+    Description: The desired name of your AWS EKS Cluster.
   
   EnvironmentName:
     Description: An environment name that is prefixed to resource names
