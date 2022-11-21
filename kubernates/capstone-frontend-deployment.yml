@@ -15,7 +15,7 @@ spec:
         role: $COLOR
     spec:
       containers:
-        - image: duyhuynhdn/capstone-frontend:latest
+        - image: dangdang511/capstore-frontend:latest
           name: capstone-frontend
           imagePullPolicy: Always
           ports:
