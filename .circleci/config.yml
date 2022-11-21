@@ -1,6 +1,5 @@
 version: 2.1
 
-
 orbs:
   node: circleci/node@4.7
   aws-eks: circleci/aws-eks@1.1.0
@@ -14,13 +13,14 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install cfn lint
+          name: Install cfn lint 
           command: |
             pip install cfn-lint
       - run:
-          name: validation cloudFormation template
+          name: Validate CloudFormation template
           command: |
             cfn-lint infrastructure/system.yml
+            
   deploy-cfn:
     parameters:
       stack-name:
