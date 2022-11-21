@@ -20,13 +20,14 @@ jobs:
           name: Validate CloudFormation template
           command: |
             cfn-lint infrastructure/system.yml
-            
+
   deploy-cfn:
     parameters:
       stack-name:
         description: Name of the CloudFormation stack
         type: string
-    executor: aws-cli/default
+    docker:
+        - image : amazon/aws-cli
     steps:
       - checkout
       - run: 
