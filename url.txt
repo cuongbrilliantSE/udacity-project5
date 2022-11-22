@@ -1,0 +1,2 @@
+green web : http://a0e9f559751444e09b9e408de0426ce5-1624469798.us-east-1.elb.amazonaws.com/#/employees
+github repository : https://github.com/DangHHDang/capstone
