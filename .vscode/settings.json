@@ -1,5 +1,0 @@
-{
-    "yaml.schemas": {
-        "https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json": "file:///d%3A/AWS-Devops/capstone/infrastructure/system.yml"
-    }
-}
