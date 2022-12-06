@@ -156,7 +156,7 @@ workflows:
     jobs:
       - cfn-lint
       - deploy-cfn:
-          stack-name: Udacity-Capstone-1
+          stack-name: Udacity-Capstone
           requires:
             - cfn-lint
       - lint-frontend
