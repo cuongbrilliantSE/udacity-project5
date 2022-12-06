@@ -212,7 +212,7 @@ export class Employees extends React.Component<
               <a style={this.thirdLevelBreadcrumb}>Employees</a>
             </li>
             <li>
-              <a style={this.thirdLevelBreadcrumb}>View & Manage 111</a>
+              <a style={this.thirdLevelBreadcrumb}>View & Manage</a>
             </li>
           </Breadcrumb>
 
