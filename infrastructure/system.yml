@@ -1,6 +1,5 @@
 Description: >
   Submition Capstone infra
-
 Parameters:
   # Paramenters are entirely optional.
   # but using them will make your cloudformation templates more reusable
@@ -21,6 +20,18 @@ Parameters:
     Description: Please enter the IP range (CIDR notation) for the public subnet in the second Availability Zone
     Type: String
     Default: 10.192.11.0/24
+
+  EKSIAMRoleName:
+    Type: String
+    Description: The name of the IAM role for the EKS service to assume.
+
+  EKSNodeRoleName:
+    Type: String
+    Description: The name of the Node role for the EKS service to assume.
+
+  EKSClusterName:
+    Type: String
+    Description: The desired name of your AWS EKS Cluster.
   
   EnvironmentName:
     Description: An environment name that is prefixed to resource names
@@ -106,18 +117,18 @@ Resources:
       GroupName: WebServerSecGroup
       GroupDescription: "Security group for this application server"
       SecurityGroupIngress:
-      - IpProtocol: tcp
-        FromPort: 22
-        ToPort: 22
-        CidrIp: 0.0.0.0/0
-      - IpProtocol: tcp
-        FromPort: 0
-        ToPort: 65535
-        CidrIp: 0.0.0.0/0
-      - IpProtocol: tcp
-        FromPort: 80
-        ToPort: 80
-        CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 0
+          ToPort: 65535
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
       VpcId: !Ref VPC
 
   EKSIAMRole:
@@ -163,10 +174,10 @@ Resources:
         "Fn::GetAtt": ["EKSIAMRole", "Arn"]
       ResourcesVpcConfig:
         SecurityGroupIds:
-        - !Ref WebServerSecGroup
+          - !Ref WebServerSecGroup
         SubnetIds:
-        - !Ref PublicSubnet1
-        - !Ref PublicSubnet2
+          - !Ref PublicSubnet1
+          - !Ref PublicSubnet2
 
   EKSNodegroupFleet:
     Type: AWS::EKS::Nodegroup
