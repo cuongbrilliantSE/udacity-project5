@@ -13,14 +13,13 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install cfn lint 
+          name: Install cfn lint
           command: |
             pip install cfn-lint
       - run:
           name: Validate CloudFormation template
           command: |
             cfn-lint infrastructure/system.yml
-
   deploy-cfn:
     parameters:
       stack-name:
@@ -30,7 +29,7 @@ jobs:
     steps:
       - checkout
       - aws-cli/setup
-      - run: 
+      - run:
           name: Deploy Cloudformation Template with new Docker image
           no_output_timeout: 30m
           command: |
@@ -39,7 +38,7 @@ jobs:
             --parameter-overrides $(jq -r '.[] | [.ParameterKey, .ParameterValue] | "\(.[0])=\(.[1])"' ./infrastructure/system-parameters.json) \
             --stack-name << parameters.stack-name >> \
             --capabilities "CAPABILITY_IAM" "CAPABILITY_NAMED_IAM"
-            
+
   lint-frontend:
     docker:
       - image: node:13.8.0
@@ -51,7 +50,7 @@ jobs:
             cd frontend
             npm install
             npm run lint
-  
+
   build-frontend:
     docker:
       - image: docker:17.05.0-ce-git
@@ -89,7 +88,6 @@ jobs:
           command: |
             echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" -p "$DOCKERHUB_PASS"
             docker push backenddocker2022/capstone-frontend:latest
-
   deploy-frontend:
     executor: aws-eks/python3
     parameters:
@@ -148,15 +146,13 @@ jobs:
           name: Restart image
           command: |
             kubectl rollout restart deployment/capstone-frontend-$COLOR
-
-
 workflows:
   default: # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.
     jobs:
       - cfn-lint
       - deploy-cfn:
-          stack-name: Udacity-Capstone
+          stack-name: Udacity-Capstone-2
           requires:
             - cfn-lint
       - lint-frontend
@@ -166,5 +162,5 @@ workflows:
       - deploy-frontend:
           cluster-name: "EKSClusterCapstone"
           requires:
-              - build-frontend
-              - deploy-cfn
+            - build-frontend
+            - deploy-cfn
